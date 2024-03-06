@@ -1,4 +1,4 @@
-FROM debian:bookworm
+FROM debian:buster
 
 
 RUN apt-get -y update \
@@ -7,7 +7,7 @@ RUN apt-get -y update \
 
 RUN apt-get -y install curl net-tools openssl
 
-RUN openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout /etc/ssl/private/nginx.key -out /etc/ssl/certs/nginx.crt -subj "/C=MO/ST=khouribga/L=khouribga/O=inception/CN=saboulal.42.fr"
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout /etc/ssl/private/nginx.key -out /etc/ssl/certs/nginx.crt -subj "/C=MO/ST=khouribga/L=khouribga/O=inception/CN=fael-bou.42.fr"
 
 EXPOSE 443
 
