@@ -3,7 +3,7 @@ version: "3.9"
 services:
   mariadb:
     container_name: "mariadb"
-    image: "mariadb"
+    image: "mariadb:1337"
     build: ./requirements/mariadb/
     restart: on-failure
     env_file:
@@ -15,8 +15,8 @@ services:
   
   wordpress:
     container_name: "wordpress"
-    image: "wordpress"
-    build: ./requirements/wordpress/
+    image: "wordpress:1337"
+    build: ./requirements/wp/
     restart: on-failure
     depends_on: 
       - mariadb
@@ -29,7 +29,7 @@ services:
 
   nginx:
     container_name: "nginx"
-    image: "nginx"
+    image: "nginx:1337"
     build: ./requirements/nginx/
     restart: on-failure
     depends_on: 
