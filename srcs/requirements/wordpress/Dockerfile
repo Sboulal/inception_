@@ -1,0 +1,26 @@
+FROM debian:bookworm
+
+WORKDIR /var/www/html/
+
+RUN chown -R www-data:www-data /var/www/html/ &&\
+	find /var/www/html/ -type d -exec chmod 755 {} \; &&\
+	find /var/www/html/ -type f -exec chmod 644 {} \;
+
+COPY ./tools/script.sh /
+
+RUN chmod +x /script.sh
+
+RUN apt-get -y update \
+	&& apt-get -y upgrade
+
+RUN apt-get install -y wget
+
+RUN apt-get install -y php-fpm php-mysql php-mbstring php-zip php-gd php-xml php-pear php-gettext php-cgi php-fpm php-json php-pdo php-mysql php-zip php-gd php-mbstring php-curl php-xml php-pear php-bcmath mariadb-client
+
+
+RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+RUN chmod +x wp-cli.phar
+RUN mv wp-cli.phar /bin/wp
+
+
+ENTRYPOINT ["/script.sh"]

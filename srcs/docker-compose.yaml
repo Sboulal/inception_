@@ -1,0 +1,60 @@
+version: "3.9"
+
+services:
+  mariadb:
+    container_name: "mariadb"
+    image: "mariadb"
+    build: ./requirements/mariadb/
+    restart: on-failure
+    env_file:
+      - .env
+    volumes:
+      - DB:/var/lib/mysql
+    networks:
+      - net
+  
+  wordpress:
+    container_name: "wordpress"
+    image: "wordpress"
+    build: ./requirements/wordpress/
+    restart: on-failure
+    depends_on: 
+      - mariadb
+    networks:
+      - net
+    volumes:
+      - wp:/var/www/html
+    env_file:
+      - .env
+
+  nginx:
+    container_name: "nginx"
+    image: "nginx"
+    build: ./requirements/nginx/
+    restart: on-failure
+    depends_on: 
+      - wordpress
+    ports:
+      - "443:443"
+    networks: 
+      - net
+    volumes:
+      - wp:/var/www/html 
+
+volumes:
+  DB:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: bind
+      device: /home/salma/data/DB
+  wp:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: bind
+      device: /home/salma/data/wp
+
+
+networks:
+  net:
