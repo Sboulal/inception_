@@ -22,7 +22,7 @@ fclean:
 	docker container prune -f
 	docker volume prune -f
 	docker image prune -f
-	#docker system prune -f
+	docker system prune -f
 	sudo rm -rf /home/salma/data/*/* 
 	docker network prune -f
 

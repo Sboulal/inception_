@@ -23,4 +23,5 @@ RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /bin/wp
 
 
-ENTRYPOINT ["/script.sh"]
+ENTRYPOINT ["bash"]
+ 

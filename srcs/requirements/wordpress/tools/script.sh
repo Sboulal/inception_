@@ -1,5 +1,6 @@
 #!/bin/bash
 
+sleep 5
 
 if ! wp core --path="/var/www/html" --allow-root is-installed; then
 	wp core --path="/var/www/html" --allow-root is-installed
